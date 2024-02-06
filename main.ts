@@ -1,4 +1,4 @@
-import {Hono} from "https://deno.land/x/hono@v3.4.1/mod.ts";
+import {Hono} from "https://deno.land/x/hono@v3.12.11/mod.ts";
 
 import {TokenMetadata} from 'npm:@solana/spl-token-metadata'
 
