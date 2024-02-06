@@ -23,7 +23,7 @@ app.get("/metadata", (c) => {
     const metadataParts = metadataStr.includes(",")
         ? metadataStr.split(",")
         : [metadataStr];
-    const additionalMetadata: [string, string][] = metadataParts.map(
+    const additionalMetadata: [string, string][] = metadataParts.filter(i => i.length).map(
         (part: string) => {
             const [key, value] = part.split(":");
             return [key, value];
