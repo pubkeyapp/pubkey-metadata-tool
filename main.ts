@@ -15,6 +15,7 @@ app.get("/metadata", (c) => {
 
     const name = c.req.query("name") ?? "Default Name";
     const symbol = c.req.query("symbol") ?? "DEFAULT";
+    const image = c.req.query("image") ?? `https://ui-avatars.com/api/?name=${symbol}&length=3`;
     const mint = c.req.query("mint") ??
         "FEESx3igs4u1p4kh4eBmRwoVYujxgXDsVv5Hy5GDNpXD";
 
@@ -33,12 +34,23 @@ app.get("/metadata", (c) => {
         encodeURIComponent(symbol)
     }&mint=${encodeURI(mint)}&metadata=${encodeURIComponent(metadataStr)}`;
 
-    const result: Omit<TokenMetadata, "mint"> & { mint: string } = {
+    const result: Omit<TokenMetadata, "mint"> & {
+        mint: string,
+        image: string,
+        attributes: { trait_type: string; value: string }[],
+    } = {
         name,
         symbol,
         mint,
         uri,
+        image,
         additionalMetadata: additionalMetadata ?? [],
+        attributes: [
+            ...additionalMetadata.map(([trait_type, value]) => ({
+                trait_type,
+                value,
+            })),
+        ]
     };
 
     return c.json(result);
