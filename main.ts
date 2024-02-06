@@ -32,7 +32,7 @@ app.get("/metadata", (c) => {
 
     const uri = `${baseUrl}?name=${encodeURIComponent(name)}&symbol=${
         encodeURIComponent(symbol)
-    }&mint=${encodeURI(mint)}&metadata=${encodeURIComponent(metadataStr)}`;
+    }&mint=${encodeURI(mint)}&image=${encodeURI(image)}${metadataStr.length ? `&metadata=${encodeURIComponent(metadataStr)}` : ""}`;
 
     const result: Omit<TokenMetadata, "mint"> & {
         mint: string,
